@@ -20,7 +20,6 @@ export async function action({ request }: ActionFunctionArgs) {
       username: formData.get("username"),
       password: formData.get("password"),
     });
-    console.log(data, error);
     if (error) {
       return { error: error[0].msg || error };
     }
