@@ -12,8 +12,12 @@ declare module "react-router" {
 
 type Params = {
   "/": {};
-  "/add-task": {};
-  "/task/:id": {
+  "/auth": {};
+  "/auth/login": {};
+  "/auth/register": {};
+  "/managing": {};
+  "/managing/add-task": {};
+  "/managing/task/:id": {
     "id": string;
   };
 };

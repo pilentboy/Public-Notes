@@ -8,10 +8,12 @@ import {
   Link,
   NavLink,
 } from "react-router";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { LuNotebookPen } from "react-icons/lu";
+import { CiLogout } from "react-icons/ci";
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import Header from "./components/header/Header";
 import Nav from "./components/header/Nav";
 
 export const links: Route.LinksFunction = () => [
@@ -39,7 +41,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {/* children is actully the App component which is in this file */}
-        {children}
+        <AuthProvider>{children}</AuthProvider>
+
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -48,11 +51,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const { isAuthenticated, setLogout } = useAuth();
+
   return (
     <>
-      <Header>
+      <header className="container  mx-auto my-2  flex justify-between items-center ">
+        {isAuthenticated && (
+          <CiLogout
+            className="text-4xl hover:text-red-500 duration-200 cursor-pointer"
+            title="logout"
+            onClick={setLogout}
+          />
+        )}
         <Nav />
-      </Header>
+        <LuNotebookPen
+          className="text-4xl hover:text-orange-400 duration-200 cursor-pointer hidden md:block"
+        />
+      </header>
       <main>
         <Outlet />
       </main>
@@ -72,7 +87,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         ? "The requested page could not be found."
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
     stack = error.stack;
   }
 

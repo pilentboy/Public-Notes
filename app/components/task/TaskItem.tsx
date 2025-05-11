@@ -26,7 +26,7 @@ export default function TaskItem({
         displayContent ? "h-fit" : " h-24 md:h-16"
       } `}
     >
-      <Link to={`/task/${id}`} className="w-32">
+      <Link to={`managing/task/${id}`} className="w-32">
         {title}
       </Link>
       <p
