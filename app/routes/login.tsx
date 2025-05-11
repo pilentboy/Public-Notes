@@ -23,6 +23,8 @@ export async function action({ request }: ActionFunctionArgs) {
     if (error) {
       return { error: error[0].msg || error };
     }
+    console.log(data);
+
     return { token: data.token };
   } catch (error) {
     console.log(error);
