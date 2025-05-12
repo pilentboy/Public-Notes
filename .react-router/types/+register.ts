@@ -16,8 +16,8 @@ type Params = {
   "/auth/login": {};
   "/auth/register": {};
   "/managing": {};
-  "/managing/add-task": {};
-  "/managing/task/:id": {
+  "/managing/write": {};
+  "/managing/edit/:id": {
     "id": string;
   };
 };

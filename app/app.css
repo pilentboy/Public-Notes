@@ -7,11 +7,14 @@
 
 html,
 body {
-  @apply bg-blue-950 px-2;
+  @apply bg-blue-950 p-2;
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
 }
-a {
+a,
+button {
   @apply hover:text-orange-400 duration-200;
+}
+h1 {
 }

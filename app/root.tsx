@@ -5,16 +5,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  Link,
-  NavLink,
 } from "react-router";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import { LuNotebookPen } from "react-icons/lu";
-import { CiLogout } from "react-icons/ci";
+import { AuthProvider } from "./context/AuthContext";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import Nav from "./components/header/Nav";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -41,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {/* children is actully the App component which is in this file */}
-        <AuthProvider>{children}</AuthProvider>
+        {children}
 
         <ScrollRestoration />
         <Scripts />
@@ -51,27 +49,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { isAuthenticated, setLogout } = useAuth();
-
   return (
-    <>
+    <AuthProvider>
       <header className="container  mx-auto my-2  flex justify-between items-center ">
-        {isAuthenticated && (
-          <CiLogout
-            className="text-4xl hover:text-red-500 duration-200 cursor-pointer"
-            title="logout"
-            onClick={setLogout}
-          />
-        )}
         <Nav />
-        <LuNotebookPen
-          className="text-4xl hover:text-orange-400 duration-200 cursor-pointer hidden md:block"
-        />
       </header>
       <main>
         <Outlet />
       </main>
-    </>
+      <ToastContainer toastClassName={"bg-red-500"} />
+    </AuthProvider>
   );
 }
 

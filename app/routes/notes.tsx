@@ -1,10 +1,10 @@
 import { supabase } from "~/supabase-clinet";
-import type { Route } from "./+types/home";
-import TaskItem from "~/components/task/TaskItem";
+import type { Route } from "./+types/notes";
+import TaskItem from "~/components/note/NoteItem";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "My Tasks" },
+    { title: "Notes" },
     {
       name: "description",
       content: "it's a simple To-Do App created by React Router V7",

@@ -1,13 +1,13 @@
 import { supabase } from "~/supabase-clinet";
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/write";
 import { Form, redirect, type ActionFunctionArgs } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Add Task" },
+    { title: "Write" },
     {
       name: "description",
-      content: "You can add your tasks from this page",
+      content: "You can add your notes from this page",
     },
   ];
 }
@@ -28,9 +28,9 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 }
 
-export default function AddTask() {
+export default function Write() {
   return (
-    <div >
+    <div className="mt-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
       <Form method="post" className="flex flex-col items-center gap-2">
         <div className="flex flex-col gap-1 ">
           <label htmlFor="title" className="ms-1">

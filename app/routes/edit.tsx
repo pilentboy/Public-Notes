@@ -1,16 +1,17 @@
 import { Form, redirect, type ActionFunctionArgs } from "react-router";
-import type { Route } from "./+types/task";
 import { supabase } from "~/supabase-clinet";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import type { Route } from "./+types/edit";
 
 export function meta({ params }: Route.MetaArgs) {
   return [
-    { title: `Edigin task ${params.id}` },
+    { title: `Editing Note ${params.id}` },
     {
       name: "description",
-      content: "this page only displays the selected task from the home page form editing",
+      content:
+        "this page only displays the selected task from the home page form editing",
     },
   ];
 }
@@ -66,7 +67,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 }
 
-export default function Task({ loaderData, actionData }: Route.ComponentProps) {
+export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
   const { item } = loaderData;
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function Task({ loaderData, actionData }: Route.ComponentProps) {
     }
   }, [actionData]);
   return (
-    <div>
+    <div className="mt-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
       <Form method="post" className="flex flex-col items-center gap-2">
         <div className="flex flex-col gap-1 ">
           <label htmlFor="title" className="ms-1">
@@ -85,6 +86,7 @@ export default function Task({ loaderData, actionData }: Route.ComponentProps) {
             type="text"
             name="title"
             id="title"
+            maxLength={20}
             defaultValue={item.title}
             className="outline-none rounded-2xl p-2 w-92 bg-gray-900 text-white"
             required
@@ -97,6 +99,7 @@ export default function Task({ loaderData, actionData }: Route.ComponentProps) {
           <textarea
             name="content"
             id="content"
+            maxLength={500}
             defaultValue={item.content}
             className="outline-none  rounded-2xl p-2 w-92 h-92 overflow-x-hidden overflow-y-auto  bg-gray-900 text-white"
             required
