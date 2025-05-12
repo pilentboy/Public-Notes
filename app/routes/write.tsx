@@ -22,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   try {
     const formData = await request.formData();
-    const { error } = await supabase.from("taswks").insert({
+    const { error } = await supabase.from("tasks").insert({
       title: formData.get("title"),
       content: formData.get("content"),
     });
