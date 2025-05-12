@@ -1,4 +1,8 @@
-import { useNavigate, type ActionFunctionArgs } from "react-router";
+import {
+  useNavigate,
+  useNavigation,
+  type ActionFunctionArgs,
+} from "react-router";
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/login";
 import { login } from "~/api";
@@ -17,7 +21,7 @@ export function meta({}: Route.ActionArgs) {
   ];
 }
 
-export async function action({ request, }: ActionFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   try {
     const formData = await request.formData();
     const { data, error } = await login({
@@ -37,6 +41,7 @@ export async function action({ request, }: ActionFunctionArgs) {
 export default function Login({ actionData }: Route.ComponentProps) {
   const [displayPass, setDisplayPass] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const { state } = useNavigation();
 
   const navigate = useNavigate();
   const { setLogin } = useAuth();
@@ -59,6 +64,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
         setDisplayPass={setDisplayPass}
         displayPass={displayPass}
         title="Login"
+        isSubmiting={state === "submitting"}
       />
     </>
   );

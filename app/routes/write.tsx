@@ -1,6 +1,11 @@
 import { supabase } from "~/supabase-clinet";
 import type { Route } from "./+types/write";
-import { Form, redirect, type ActionFunctionArgs } from "react-router";
+import {
+  Form,
+  redirect,
+  useNavigation,
+  type ActionFunctionArgs,
+} from "react-router";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -17,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   try {
     const formData = await request.formData();
-    const { error } = await supabase.from("tasks").insert({
+    const { error } = await supabase.from("taswks").insert({
       title: formData.get("title"),
       content: formData.get("content"),
     });
@@ -31,6 +36,8 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Write({ actionData }: Route.ComponentProps) {
+  const { state } = useNavigation();
+
   useEffect(() => {
     if (actionData?.error) {
       toast.error(actionData?.error, {
@@ -66,7 +73,12 @@ export default function Write({ actionData }: Route.ComponentProps) {
         </div>
         <button
           type="submit"
-          className="w-27 h-10 bg-gray-900 ms-1 rounded-2xl duration-200 cursor-pointer hover:text-orange-400"
+          className={`w-27 h-10  ms-1 rounded-2xl duration-200  hover:text-orange-400 ${
+            state == "submitting"
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-gray-900 cursor-pointer"
+          }`}
+          disabled={state === "submitting"}
         >
           Add
         </button>

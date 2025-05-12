@@ -8,12 +8,14 @@ export default function CustomForm({
   displayPass,
   setDisplayPass,
   title,
+  isSubmiting,
 }: {
   isTyping: boolean;
   setIsTyping: any;
   displayPass: boolean;
   setDisplayPass: any;
   title: string;
+  isSubmiting: boolean;
 }) {
   return (
     <Form
@@ -67,7 +69,10 @@ export default function CustomForm({
       </div>
       <button
         type="submit"
-        className="w-27 h-10 bg-gray-900 ms-1 rounded-2xl duration-200 cursor-pointer hover:text-orange-400"
+        className={`w-27 h-10  ms-1 rounded-2xl duration-200  hover:text-orange-400 ${
+          isSubmiting ? "bg-gray-500 cursor-not-allowed" : "bg-gray-900 cursor-pointer"
+        }`}
+        disabled={isSubmiting}
       >
         Submit
       </button>

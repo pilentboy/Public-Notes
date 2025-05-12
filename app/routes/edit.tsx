@@ -1,4 +1,9 @@
-import { Form, redirect, type ActionFunctionArgs } from "react-router";
+import {
+  Form,
+  redirect,
+  useNavigation,
+  type ActionFunctionArgs,
+} from "react-router";
 import { supabase } from "~/supabase-clinet";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
@@ -70,6 +75,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
   const { item } = loaderData;
+  const { state } = useNavigation();
+
   useEffect(() => {
     if (actionData?.error) {
       toast.error(actionData?.error, {
@@ -117,7 +124,12 @@ export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
             type="submit"
             value={"update"}
             name="intent"
-            className="w-27 h-10 flex items-center justify-center bg-gray-900 ms-1 rounded-2xl duration-200 cursor-pointer "
+            disabled={state === "submitting"}
+            className={`w-27 h-10 flex items-center justify-center ms-1 rounded-2xl duration-200  hover:text-orange-400 ${
+              state == "submitting"
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-gray-900 cursor-pointer"
+            }`}
           >
             <FaRegEdit className="hover:text-blue-500   text-lg   duration-200 cursor-pointer " />
           </button>
@@ -125,7 +137,12 @@ export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
             type="submit"
             value={"delete"}
             name="intent"
-            className="w-27 h-10 flex items-center justify-center bg-gray-900 ms-1 rounded-2xl duration-200 cursor-pointer "
+            disabled={state === "submitting"}
+            className={`w-27 h-10  ms-1 rounded-2xl flex items-center justify-center duration-200  hover:text-orange-400 ${
+              state == "submitting"
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-gray-900 cursor-pointer"
+            }`}
           >
             <MdDeleteForever className="hover:text-red-500  text-lg  duration-200 cursor-pointer" />
           </button>

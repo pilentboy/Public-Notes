@@ -1,9 +1,13 @@
-import { Form, type ActionFunctionArgs } from "react-router";
+import {
+  redirect,
+  StaticRouterProvider,
+  useNavigation,
+  type ActionFunctionArgs,
+} from "react-router";
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/register";
 import { register } from "~/api";
-import { FaRegEye } from "react-icons/fa";
-import { FaRegEyeSlash } from "react-icons/fa";
+
 import CustomForm from "~/components/form/CustomForm";
 import { toast } from "react-toastify";
 
@@ -28,7 +32,7 @@ export async function action({ request }: ActionFunctionArgs) {
       console.log(error);
       return { error: error[0].msg || error };
     }
-    return { registered: true };
+    return redirect("/auth/login");
   } catch (error) {
     return { error: "an unknown error occurred" };
   }
@@ -37,6 +41,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function Register({ actionData }: Route.ComponentProps) {
   const [displayPass, setDisplayPass] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const { state } = useNavigation();
 
   useEffect(() => {
     if (actionData?.error) {
@@ -45,6 +50,7 @@ export default function Register({ actionData }: Route.ComponentProps) {
       });
     }
   }, [actionData]);
+
   return (
     <CustomForm
       isTyping={isTyping}
@@ -52,6 +58,7 @@ export default function Register({ actionData }: Route.ComponentProps) {
       setDisplayPass={setDisplayPass}
       displayPass={displayPass}
       title="Register"
+      isSubmiting={state === "submitting"}
     />
   );
 }
