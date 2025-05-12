@@ -1,6 +1,8 @@
 import { supabase } from "~/supabase-clinet";
 import type { Route } from "./+types/write";
 import { Form, redirect, type ActionFunctionArgs } from "react-router";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -20,15 +22,22 @@ export async function action({ request }: ActionFunctionArgs) {
       content: formData.get("content"),
     });
     if (error) {
-      return { error: "please fill out all the form inputs" };
+      return { error: "an error occurred" };
     }
     return redirect("/");
   } catch (error) {
-    return { error: "an error occured" };
+    return { error: "an error occurred" };
   }
 }
 
-export default function Write() {
+export default function Write({ actionData }: Route.ComponentProps) {
+  useEffect(() => {
+    if (actionData?.error) {
+      toast.error(actionData?.error, {
+        position: "top-center",
+      });
+    }
+  }, [actionData]);
   return (
     <div className="mt-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
       <Form method="post" className="flex flex-col items-center gap-2">

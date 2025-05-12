@@ -31,7 +31,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return { token: data.token };
   } catch (error) {
     console.log(error);
-    return { error: "an unknown error occured" };
+    return { error: "an unknown error occurred" };
   }
 }
 export default function Register({ actionData }: Route.ComponentProps) {
@@ -58,9 +58,8 @@ export default function Register({ actionData }: Route.ComponentProps) {
         setIsTyping={setIsTyping}
         setDisplayPass={setDisplayPass}
         displayPass={displayPass}
-        title='Login'
+        title="Login"
       />
     </>
   );
 }
-

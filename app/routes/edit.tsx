@@ -4,6 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/edit";
+import { toast } from "react-toastify";
 
 export function meta({ params }: Route.MetaArgs) {
   return [
@@ -30,7 +31,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 
     return { item: data };
   } catch (error) {
-    return { error: "an error occured" };
+    return { error: "an error occurred" };
   }
 }
 
@@ -63,16 +64,21 @@ export async function action({ request, params }: ActionFunctionArgs) {
       return { updated: true };
     }
   } catch (error) {
-    return { error: "an error occured" };
+    return { error: "an error occurred" };
   }
 }
 
 export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
   const { item } = loaderData;
-  const [displayModal, setDisplayModal] = useState<boolean>(false);
   useEffect(() => {
     if (actionData?.error) {
-      setDisplayModal(true);
+      toast.error(actionData?.error, {
+        position: "top-center",
+      });
+    } else if (actionData?.updated) {
+      toast.info("Updated", {
+        position: "top-center",
+      });
     }
   }, [actionData]);
   return (
@@ -124,23 +130,6 @@ export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
             <MdDeleteForever className="hover:text-red-500  text-lg  duration-200 cursor-pointer" />
           </button>
         </div>
-        {displayModal && (
-          <div
-            className="fixed top-0 left-0 w-screen h-screen backdrop-blur-[1px] flex items-center justify-center"
-            onClick={() => setDisplayModal(false)}
-          >
-            {actionData?.error && (
-              <span className="text-red-500 font-bold  bg-white">
-                {actionData.error}
-              </span>
-            )}
-          </div>
-        )}
-        {actionData?.updated && (
-          <span className="text-orange-400 font-bold  bg-white">
-            Updated Successfully
-          </span>
-        )}
       </Form>
     </div>
   );

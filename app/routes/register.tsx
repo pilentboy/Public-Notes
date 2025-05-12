@@ -30,7 +30,7 @@ export async function action({ request }: ActionFunctionArgs) {
     }
     return { registered: true };
   } catch (error) {
-    return { error: "an unknown error occured" };
+    return { error: "an unknown error occurred" };
   }
 }
 
@@ -51,8 +51,7 @@ export default function Register({ actionData }: Route.ComponentProps) {
       setIsTyping={setIsTyping}
       setDisplayPass={setDisplayPass}
       displayPass={displayPass}
-      title='Register'
-
+      title="Register"
     />
   );
 }

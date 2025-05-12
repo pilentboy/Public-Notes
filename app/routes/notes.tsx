@@ -20,7 +20,7 @@ export async function loader() {
     }
     return { data };
   } catch (error) {
-    return { error: "an error occured" };
+    return { error: "an error occurred" };
   }
 }
 
