@@ -17,7 +17,7 @@ export function meta({}: Route.ActionArgs) {
   ];
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ request, }: ActionFunctionArgs) {
   try {
     const formData = await request.formData();
     const { data, error } = await login({
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return { error: "an unknown error occurred" };
   }
 }
-export default function Register({ actionData }: Route.ComponentProps) {
+export default function Login({ actionData }: Route.ComponentProps) {
   const [displayPass, setDisplayPass] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
