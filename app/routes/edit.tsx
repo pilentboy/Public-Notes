@@ -101,7 +101,7 @@ export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
             id="title"
             maxLength={20}
             defaultValue={item.title}
-            className="outline-none rounded-2xl p-2 w-92 bg-gray-900 text-white"
+            className="outline-none rounded-2xl p-2 w-84 sm:w-92 bg-gray-900 text-white"
             required
           />
         </div>
@@ -114,7 +114,7 @@ export default function Edit({ loaderData, actionData }: Route.ComponentProps) {
             id="content"
             maxLength={500}
             defaultValue={item.content}
-            className="outline-none  rounded-2xl p-2 w-92 h-92 overflow-x-hidden overflow-y-auto  bg-gray-900 text-white"
+            className="outline-none  rounded-2xl p-2 w-84 sm:w-92 h-92 overflow-x-hidden overflow-y-auto  bg-gray-900 text-white"
             required
           />
         </div>

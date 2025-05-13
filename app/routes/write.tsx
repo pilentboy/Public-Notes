@@ -57,7 +57,7 @@ export default function Write({ actionData }: Route.ComponentProps) {
             name="title"
             id="title"
 			maxLength={20}
-            className="outline-none rounded-2xl p-2 w-92 bg-gray-900 text-white"
+            className="outline-none rounded-2xl p-2 w-84 sm:w-92 bg-gray-900 text-white"
             required
           />
         </div>
@@ -68,7 +68,7 @@ export default function Write({ actionData }: Route.ComponentProps) {
           <textarea
             name="content"
             id="content"
-            className="outline-none  rounded-2xl p-2 w-92 h-92 overflow-x-hidden overflow-y-auto  bg-gray-900 text-white"
+            className="outline-none  rounded-2xl p-2 w-84 sm:w-92 h-92 overflow-x-hidden overflow-y-auto  bg-gray-900 text-white"
 			 maxLength={500}
             required
           />
