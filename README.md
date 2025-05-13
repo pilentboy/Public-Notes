@@ -1,6 +1,3 @@
-Here's a complete README for your app:
-
----
 
 # My React Router App
 
