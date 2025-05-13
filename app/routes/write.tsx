@@ -82,7 +82,7 @@ export default function Write({ actionData }: Route.ComponentProps) {
           }`}
           disabled={state === "submitting"}
         >
-          Add
+          Share
         </button>
       </Form>
     </div>
